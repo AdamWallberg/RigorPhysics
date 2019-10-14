@@ -1,4 +1,4 @@
-solution("RigidPhysics")
+solution("RigorPhysics")
 	language "C++"
 	debugdir "$(OutDir)"
 	objdir "build/"
@@ -32,7 +32,7 @@ solution("RigidPhysics")
 	configuration {}
 	
 	
-project("RigidPhysics")
+project("RigorPhysics")
 	kind "StaticLib"
 	
 	includedirs {
