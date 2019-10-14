@@ -1,5 +1,7 @@
 #pragma once
 
+//TODO: Link towards glm or some other math library
+
 namespace rg
 {
 
