@@ -1,0 +1,18 @@
+# Dependencies
+source/utils/deps
+
+# Generated files
+*.sln
+*.vcxproj
+*.db
+*.opendb
+*.filters
+*.user
+*.exe
+*.pdb
+*.ilk
+source/.vs
+source/build
+
+# Include premake executable
+!source/utils/premake/premake5.exe
