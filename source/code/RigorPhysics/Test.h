@@ -1,13 +1,14 @@
 #pragma once
 
-//TODO: Link towards glm or some other math library
+#include <glm/glm.hpp> // vec2, vec3, mat4, radians
+#include <glm/ext.hpp> // perspective, translate, rotate
 
 namespace rg
 {
 
-int testFunction(int value)
+glm::vec3 testFunction(glm::vec3 v0, glm::vec3 v1)
 {
-	return value * 5;
+	return v0 + v1;
 }
 
 }

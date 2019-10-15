@@ -37,6 +37,7 @@ project("RigorPhysics")
 	
 	includedirs {
 		"code/",
+		"../../GLM/"
 	}
 	
 	files {
