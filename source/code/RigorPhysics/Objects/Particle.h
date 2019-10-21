@@ -8,7 +8,7 @@ namespace rg
 class Particle
 {
 public:
-	Particle(Vector3 position, float mass, float damp, float deltaTime);
+	Particle(Vector3 position, float mass, float damp);
 	void addForce(Vector3 force);
 	void addForceIgnoreMass(Vector3 force);
 	void setMass(float mass);
@@ -29,7 +29,6 @@ private:
 	float mass;
 	float inverseMass;
 	float damp;
-	float deltaTime;
 };
 
 }

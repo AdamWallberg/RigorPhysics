@@ -1,28 +1,28 @@
 #include "Particle.h"
+#include "Physics.hpp"
 
 namespace rg
 {
 
-Particle::Particle(Vector3 position, float mass, float damp, float deltaTime)
+Particle::Particle(Vector3 position, float mass, float damp)
 	: position(position)
 	, oldPosition(position)
 	, force(ZeroVector)
 	, mass(mass)
 	, damp(damp)
-	, deltaTime(deltaTime)
 {
 	setMass(mass);
 }
 
 void Particle::addForce(Vector3 force)
 {
-	this->force += force * inverseMass / deltaTime;
+	this->force += force * inverseMass / timeStep;
 }
 
 void Particle::addForceIgnoreMass(Vector3 force)
 {
 	if (inverseMass == 0.0f) return;
-	this->force += force / deltaTime;
+	this->force += force / timeStep;
 }
 
 void Particle::setMass(float mass)
@@ -41,9 +41,9 @@ void Particle::setMass(float mass)
 void Particle::update()
 {
 	Vector3 newPosition =
-		position * (2.0f - damp * deltaTime) -
-		oldPosition * (1.0f - damp * deltaTime) +
-		getForce() * (deltaTime * deltaTime * inverseMass);
+		position * (2.0f - damp * timeStep) -
+		oldPosition * (1.0f - damp * timeStep) +
+		getForce() * (timeStep * timeStep * inverseMass);
 	oldPosition = position;
 	position = newPosition;
 	clearForce();
@@ -56,12 +56,12 @@ void Particle::move(Vector3 position)
 
 const Vector3 Particle::getVelocity() const
 {
-	return (position - oldPosition) * (1.0f / deltaTime);
+	return (position - oldPosition) * (1.0f / timeStep);
 }
 
 void Particle::setVelocity(Vector3 velocity)
 {
-	oldPosition = position - velocity * deltaTime;
+	oldPosition = position - velocity * timeStep;
 }
 
 void Particle::clearForce()
