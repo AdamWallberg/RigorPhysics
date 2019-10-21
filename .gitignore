@@ -11,6 +11,7 @@ source/utils/deps
 *.exe
 *.pdb
 *.ilk
+*.lib
 source/.vs
 source/build
 

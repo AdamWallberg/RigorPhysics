@@ -36,7 +36,7 @@ project("RigorPhysics")
 	kind "StaticLib"
 	
 	includedirs {
-		"code/",
+		"code/RigorPhysics/",
 		"../../GLM/"
 	}
 	
