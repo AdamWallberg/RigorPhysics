@@ -45,14 +45,16 @@ void ConvexHull::generateConvexHull(PointList points) // WARNING: Not finished!
 	}
 }
 
-void ConvexHull::generatePositionFromCenterOfMass()
+const Vector3 ConvexHull::getCenterOfMass() const
 {
-	position = ZeroVector;
-	for(const Vector3& p : points)
+	Vector3 center = ZeroVector;
+	for (const Vector3& p : points)
 	{
-		position += p;
+		center += p;
 	}
-	position /= points.size();
+	center /= points.size();
+	center += position;
+	return center;
 }
 
 void ConvexHull::fillInitialClosedList(PointList& closedList, const PointList& points)
