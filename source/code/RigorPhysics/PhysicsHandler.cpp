@@ -13,6 +13,7 @@ PhysicsHandler::PhysicsHandler()
 
 PhysicsHandler::~PhysicsHandler()
 {
+	for (auto& h : convexHulls) delete h;
 	for (auto& p : particles) delete p;
 	for (auto& p : planes) delete p;
 }
@@ -62,6 +63,17 @@ Plane* PhysicsHandler::addPlane(Plane* plane)
 void PhysicsHandler::destroyPlane(Plane* plane)
 {
 	destroyItem(plane, planes);
+}
+
+ConvexHull* PhysicsHandler::addConvexHull(ConvexHull* convexHull)
+{
+	convexHulls.push_back(convexHull);
+	return convexHull;
+}
+
+void PhysicsHandler::destroyConvexHull(ConvexHull* convexHull)
+{
+	destroyItem(convexHull, convexHulls);
 }
 
 }

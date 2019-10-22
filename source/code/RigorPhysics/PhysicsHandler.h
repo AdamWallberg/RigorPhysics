@@ -4,6 +4,7 @@
 #include "Constraints/Constraint.h"
 #include "Objects/Particle.h"
 #include "Objects/Plane.h"
+#include "Objects/ConvexHull.h"
 
 namespace rg
 {
@@ -14,6 +15,7 @@ public:
 	typedef std::vector<Constraint*> ConstraintList;
 	typedef std::vector<Particle*> ParticleList;
 	typedef std::vector<Plane*> PlaneList;
+	typedef std::vector<ConvexHull*> ConvexHullList;
 
 	PhysicsHandler();
 	~PhysicsHandler();
@@ -29,11 +31,16 @@ public:
 	Plane* addPlane(Plane* plane);
 	void destroyPlane(Plane* plane);
 	const PlaneList& getPlanes() const { return planes; }
+
+	ConvexHull* addConvexHull(ConvexHull* convexHull);
+	void destroyConvexHull(ConvexHull* convexHull);
+	const ConvexHullList& getConvexHulls() const { return convexHulls; }
 private:
 	template<class T> void destroyItem(T* item, std::vector<T*> list);
 	ConstraintList constraints;
 	ParticleList particles;
 	PlaneList planes;
+	ConvexHullList convexHulls;
 	Vector3 gravity;
 };
 
