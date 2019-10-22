@@ -12,7 +12,7 @@ rg::ParticleHullConstraint::ParticleHullConstraint(
 void rg::ParticleHullConstraint::apply()
 {
 	bool intersects = true;
-	Vector3 intersection;
+	Vector3 intersection = ZeroVector;
 	float minOverlap = std::numeric_limits<float>::infinity();
 
 	const Vector3 particlePos = particle->getPosition() - hull->position;

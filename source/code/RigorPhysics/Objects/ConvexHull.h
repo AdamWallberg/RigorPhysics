@@ -14,15 +14,16 @@ public:
 	typedef std::vector<int> IndexList;
 	
 	ConvexHull(const PointList& points, Vector3 position);
+	void normalizePosition();
 	void generateConvexHull(PointList points);
 	const PointList& getPoints() const { return points; }
 	const Vector3 getCenterOfMass() const;
 
 	Vector3 position;
 private:
-	void fillInitialClosedList(PointList& closedList, const PointList& points);
-	PointList::const_iterator getPointWithGreatesAngle(
-		Vector3 p0, PointList::iterator p1, const PointList& points);
+	void sortByAngle(PointList& points, Vector3 center);
+	float angleBetween(Vector3 v0, Vector3 v1);
+
 	PointList points;
 };
 
