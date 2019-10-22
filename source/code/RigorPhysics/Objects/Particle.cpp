@@ -51,7 +51,7 @@ void Particle::update()
 
 void Particle::move(Vector3 position)
 {
-	this->position = position;
+	this->position += position;
 }
 
 const Vector3 Particle::getVelocity() const
