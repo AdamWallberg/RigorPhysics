@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <assert.h>
+#include <stack>
 
 namespace rg
 {
@@ -22,33 +23,39 @@ void ConvexHull::normalizePosition()
 	}
 }
 
+int orientation(Vector3 p, Vector3 q, Vector3 r)
+{
+	Vector3 cross = glm::cross(q - p, r - p);
+	if (cross.z == 0.0f) return 0;
+	return cross.z < 0.0f ? 1 : 2;
+}
+
 void ConvexHull::generateConvexHull(PointList points)
 {
-	assert(points.size() >= 2);
-	Vector3 center = getCenterOfMass();
-	sortByAngle(points, center);
+	// Gift Wrapping, or Jarvis's Algorithm
+	assert(points.size() >= 3);
+	PointList hull;
 
-	// Compare angles, and only keep counterclockwise angles
-	for(int curr = 0; curr < points.size(); curr++)
+	int l = 0;
+	for (unsigned int i = 1; i < points.size(); i++)
+		if (points[i].x < points[l].x)
+			l = i;
+	
+	int p = l;
+	int q;
+	do
 	{
-		int n = points.size();
-		int prev = (((curr - 1) % n) + n) % n;
-		int next = (curr + 1) % points.size();
-
-		Vector3 v0 = points[prev];
-		Vector3 v1 = points[curr];
-		Vector3 v2 = points[next];
-
-		Vector3 reference = center - v0;
-		float angle = angleBetween(v1 - v0, v2 - v0);
-		if (angle < PI)
+		hull.push_back(points[p]);
+		q = (p + 1) % points.size();
+		for (unsigned int i = 0; i < points.size(); i++)
 		{
-			points.erase(points.begin() + curr);
-			curr--;
+			if (orientation(points[p], points[i], points[q]) == 1)
+				q = i;
 		}
-	}
+		p = q;
+	} while (p != l);
 
-	this->points = points;
+	this->points = hull;
 	normalizePosition();
 }
 
