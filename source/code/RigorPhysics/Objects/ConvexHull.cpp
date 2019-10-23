@@ -22,19 +22,14 @@ void ConvexHull::normalizePosition()
 	}
 }
 
-void ConvexHull::generateConvexHull(PointList points) // WARNING: Not finished!
+void ConvexHull::generateConvexHull(PointList points)
 {
-	assert(points.size() >= 4);
-	
+	assert(points.size() >= 2);
 	Vector3 center = getCenterOfMass();
-
-	// Sort by angle
 	sortByAngle(points, center);
 
-	//TODO: Compare one by one
-
-	int curr = 0;
-	while (curr < points.size())
+	// Compare angles, and only keep counterclockwise angles
+	for(int curr = 0; curr < points.size(); curr++)
 	{
 		int n = points.size();
 		int prev = (((curr - 1) % n) + n) % n;
@@ -45,23 +40,16 @@ void ConvexHull::generateConvexHull(PointList points) // WARNING: Not finished!
 		Vector3 v2 = points[next];
 
 		Vector3 reference = center - v0;
-		if (glm::dot(reference, v1 - v0) > glm::dot(reference, v2 - v0))
+		float angle = angleBetween(v1 - v0, v2 - v0);
+		if (angle < PI)
 		{
 			points.erase(points.begin() + curr);
 			curr--;
 		}
-		else
-		{
-			curr++;
-		}
 	}
 
-	for (Vector3& p : points)
-	{
-		p -= center;
-	}
 	this->points = points;
-	this->position = center;
+	normalizePosition();
 }
 
 const Vector3 ConvexHull::getCenterOfMass() const
@@ -79,10 +67,9 @@ const Vector3 ConvexHull::getCenterOfMass() const
 void ConvexHull::sortByAngle(PointList& points, Vector3 center)
 {
 	Vector3 reference = Vector3(0.0f, -1.0f, 0.0f);
-
 	std::sort(points.begin(), points.end(),
 		[this, center, reference](const Vector3& v0, const Vector3& v1) -> bool {
-		return angleBetween(reference, v0 - center) < angleBetween(reference, v1 - center);
+		return angleBetween(reference, v0 - center) > angleBetween(reference, v1 - center);
 	});
 }
 
@@ -93,7 +80,7 @@ float ConvexHull::angleBetween(Vector3 v0, Vector3 v1)
 	float angle = std::atan2(det, dot);
 	if (angle < 0.0f)
 	{
-		angle += 3.1415926f * 2.0f;
+		angle += PI * 2.0f;
 	}
 	return angle;
 }

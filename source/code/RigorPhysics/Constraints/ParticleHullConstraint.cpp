@@ -22,7 +22,7 @@ void rg::ParticleHullConstraint::apply()
 		const Vector3 current = points[i];
 		const Vector3 next = points[(i + 1) % points.size()];
 		const Vector3 edge = next - current;
-		const Vector3 axis = Vector3(-edge.y, edge.x, 0.0f);
+		const Vector3 axis = Vector3(edge.y, -edge.x, 0.0f);
 
 		float min = std::numeric_limits<float>::infinity();
 		float max = -std::numeric_limits<float>::infinity();
