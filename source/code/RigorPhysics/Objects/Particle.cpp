@@ -19,6 +19,11 @@ void Particle::addForce(Vector3 force)
 	this->force += force * inverseMass / timeStep;
 }
 
+void Particle::addForceUnscaled(Vector3 force)
+{
+	this->force += (force * timeStep) * inverseMass / timeStep;
+}
+
 void Particle::addForceIgnoreMass(Vector3 force)
 {
 	if (inverseMass == 0.0f) return;

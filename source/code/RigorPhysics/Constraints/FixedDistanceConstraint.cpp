@@ -3,7 +3,7 @@
 namespace rg
 {
 
-FixedDistanceConstraint::FixedDistanceConstraint(Particle * p0, Particle * p1)
+FixedDistanceConstraint::FixedDistanceConstraint(Particle* p0, Particle* p1)
 	: p0(p0)
 	, p1(p1)
 {

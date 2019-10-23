@@ -10,6 +10,7 @@ class Particle
 public:
 	Particle(Vector3 position, float mass, float damp);
 	void addForce(Vector3 force);
+	void addForceUnscaled(Vector3 force);
 	void addForceIgnoreMass(Vector3 force);
 	void setMass(float mass);
 	void update();
