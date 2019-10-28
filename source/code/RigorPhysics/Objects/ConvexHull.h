@@ -11,7 +11,6 @@ class ConvexHull
 {
 public:
 	typedef std::vector<Vector3> PointList;
-	typedef std::vector<int> IndexList;
 	
 	ConvexHull(const PointList& points, Vector3 position);
 	void normalizePosition();
