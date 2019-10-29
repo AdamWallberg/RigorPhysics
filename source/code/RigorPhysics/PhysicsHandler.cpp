@@ -46,6 +46,12 @@ void PhysicsHandler::destroyConstraint(Constraint* constraint)
 	destroyItem(constraint, constraints);
 }
 
+void PhysicsHandler::destroyAllConstraints()
+{
+	for (auto& c : constraints) delete c;
+	constraints.clear();
+}
+
 Particle* PhysicsHandler::addParticle(Particle* particle)
 {
 	particles.push_back(particle);

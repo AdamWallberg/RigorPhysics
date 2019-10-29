@@ -25,6 +25,7 @@ public:
 	Constraint* addConstraint(Constraint* constraint);
 	void destroyConstraint(Constraint* constraint);
 	const ConstraintList& getConstraints() const { return constraints; }
+	void destroyAllConstraints();
 
 	Particle* addParticle(Particle* particle);
 	void destroyParticle(Particle* particle);
