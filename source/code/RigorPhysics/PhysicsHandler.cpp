@@ -13,9 +13,7 @@ PhysicsHandler::PhysicsHandler()
 
 PhysicsHandler::~PhysicsHandler()
 {
-	for (auto& h : convexHulls) delete h;
-	for (auto& p : particles) delete p;
-	for (auto& p : planes) delete p;
+	destroyAll();
 }
 
 void PhysicsHandler::update()
@@ -30,6 +28,11 @@ void PhysicsHandler::update()
 	{
 		c->apply();
 	}
+}
+
+void PhysicsHandler::reset()
+{
+	destroyAll();
 }
 
 Constraint* PhysicsHandler::addConstraint(Constraint* constraint)
@@ -74,6 +77,18 @@ ConvexHull* PhysicsHandler::addConvexHull(ConvexHull* convexHull)
 void PhysicsHandler::destroyConvexHull(ConvexHull* convexHull)
 {
 	destroyItem(convexHull, convexHulls);
+}
+
+void PhysicsHandler::destroyAll()
+{
+	for (auto& c : constraints) delete c;
+	for (auto& h : convexHulls) delete h;
+	for (auto& p : particles) delete p;
+	for (auto& p : planes) delete p;
+	constraints.clear();
+	convexHulls.clear();
+	particles.clear();
+	planes.clear();
 }
 
 }

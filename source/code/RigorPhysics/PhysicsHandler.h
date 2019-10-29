@@ -20,6 +20,7 @@ public:
 	PhysicsHandler();
 	~PhysicsHandler();
 	void update();
+	void reset();
 
 	Constraint* addConstraint(Constraint* constraint);
 	void destroyConstraint(Constraint* constraint);
@@ -37,6 +38,8 @@ public:
 	void destroyConvexHull(ConvexHull* convexHull);
 	const ConvexHullList& getConvexHulls() const { return convexHulls; }
 private:
+	void destroyAll();
+
 	template<class T> void destroyItem(T* item, std::vector<T*> list);
 	ConstraintList constraints;
 	ParticleList particles;
