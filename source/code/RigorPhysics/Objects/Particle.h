@@ -13,7 +13,7 @@ public:
 	void addForceUnscaled(Vector3 force);
 	void addForceIgnoreMass(Vector3 force);
 	void setMass(float mass);
-	void update();
+	virtual void update();
 	void move(Vector3 position);
 	const Vector3 getVelocity() const;
 	void setVelocity(Vector3 velocity);

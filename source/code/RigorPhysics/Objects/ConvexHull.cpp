@@ -24,13 +24,6 @@ void ConvexHull::normalizePosition()
 	}
 }
 
-int orientation(Vector3 p, Vector3 q, Vector3 r)
-{
-	Vector3 cross = glm::cross(q - p, r - p);
-	if (cross.z == 0.0f) return 0;
-	return cross.z < 0.0f ? 1 : 2;
-}
-
 void ConvexHull::generateConvexHull(PointList points)
 {
 	// Gift Wrapping, or Jarvis's Algorithm
@@ -72,15 +65,6 @@ const Vector3 ConvexHull::getCenterOfMass() const
 	return center;
 }
 
-void ConvexHull::sortByAngle(PointList& points, Vector3 center)
-{
-	Vector3 reference = Vector3(0.0f, -1.0f, 0.0f);
-	std::sort(points.begin(), points.end(),
-		[this, center, reference](const Vector3& v0, const Vector3& v1) -> bool {
-		return angleBetween(reference, v0 - center) > angleBetween(reference, v1 - center);
-	});
-}
-
 void ConvexHull::updateAABB()
 {
 	float inf = std::numeric_limits<float>::infinity();
@@ -96,18 +80,6 @@ void ConvexHull::updateAABB()
 		if (p.z > max.z) max.z = p.z;
 	}
 	bounds = AABBox(min, max);
-}
-
-float ConvexHull::angleBetween(Vector3 v0, Vector3 v1)
-{
-	const float dot = v0.x * v1.x + v0.y * v1.y;
-	const float det = v0.x * v1.y - v0.y * v1.x;
-	float angle = std::atan2(det, dot);
-	if (angle < 0.0f)
-	{
-		angle += PI * 2.0f;
-	}
-	return angle;
 }
 
 }

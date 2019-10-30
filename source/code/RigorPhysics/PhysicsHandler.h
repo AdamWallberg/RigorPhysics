@@ -5,6 +5,7 @@
 #include "Objects/Particle.h"
 #include "Objects/Plane.h"
 #include "Objects/ConvexHull.h"
+#include "Objects/PointMass.h"
 
 namespace rg
 {
