@@ -2,15 +2,20 @@
 
 #include "Objects/Plane.h"
 
-rg::ParticleHullConstraint::ParticleHullConstraint(
+namespace rg
+{
+
+ParticleHullConstraint::ParticleHullConstraint(
 	Particle* particle, ConvexHull* hull)
 	: particle(particle)
 	, hull(hull)
 {
 }
 
-void rg::ParticleHullConstraint::apply()
+void ParticleHullConstraint::apply()
 {
+	if (!hull->getBounds().checkPosition(particle->getPosition()))
+		return;
 	bool intersects = true;
 	Vector3 intersection = ZeroVector;
 	float minOverlap = std::numeric_limits<float>::infinity();
@@ -32,7 +37,7 @@ void rg::ParticleHullConstraint::apply()
 			if (proj < min) min = proj;
 			if (proj > max) max = proj;
 		}
-		
+
 		float pos = glm::dot(axis, particlePos);
 		if (pos < min || pos > max)
 		{
@@ -53,4 +58,6 @@ void rg::ParticleHullConstraint::apply()
 	{
 		particle->move(intersection);
 	}
+}
+
 }

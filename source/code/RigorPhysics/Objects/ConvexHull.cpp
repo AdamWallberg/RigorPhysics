@@ -21,6 +21,7 @@ void ConvexHull::normalizePosition()
 	{
 		p -= center;
 	}
+	updateAABB();
 }
 
 int orientation(Vector3 p, Vector3 q, Vector3 r)
@@ -78,6 +79,23 @@ void ConvexHull::sortByAngle(PointList& points, Vector3 center)
 		[this, center, reference](const Vector3& v0, const Vector3& v1) -> bool {
 		return angleBetween(reference, v0 - center) > angleBetween(reference, v1 - center);
 	});
+}
+
+void ConvexHull::updateAABB()
+{
+	float inf = std::numeric_limits<float>::infinity();
+	Vector3 min(-inf, -inf, -inf);
+	Vector3 max(inf, inf, inf);
+	for (const Vector3& p : points)
+	{
+		if (p.x < min.x) min.x = p.x;
+		if (p.x > max.x) max.x = p.x;
+		if (p.y < min.y) min.y = p.y;
+		if (p.y > max.y) max.y = p.y;
+		if (p.z < min.z) min.z = p.z;
+		if (p.z > max.z) max.z = p.z;
+	}
+	bounds = AABBox(min, max);
 }
 
 float ConvexHull::angleBetween(Vector3 v0, Vector3 v1)
