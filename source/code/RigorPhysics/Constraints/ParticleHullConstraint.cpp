@@ -15,7 +15,6 @@ ParticleHullConstraint::ParticleHullConstraint(
 void ParticleHullConstraint::apply()
 {
 	bool insideAABB = hull->getBounds().inside(particle->getPosition());
-	printf((insideAABB ? "YES!\n" : "NO!\n"));
 	if (!insideAABB)
 		return;
 
