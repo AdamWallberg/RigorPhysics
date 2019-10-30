@@ -13,7 +13,7 @@ public:
 	const Vector3 getMin() const { return min; }
 	const Vector3 getMax() const { return max; }
 
-	bool checkPosition(const Vector3& position) const;
+	bool inside(const Vector3& position) const;
 private:
 	Vector3 min;
 	Vector3 max;

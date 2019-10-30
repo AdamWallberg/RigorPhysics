@@ -14,8 +14,11 @@ ParticleHullConstraint::ParticleHullConstraint(
 
 void ParticleHullConstraint::apply()
 {
-	if (!hull->getBounds().checkPosition(particle->getPosition()))
+	bool insideAABB = hull->getBounds().inside(particle->getPosition());
+	printf((insideAABB ? "YES!\n" : "NO!\n"));
+	if (!insideAABB)
 		return;
+
 	bool intersects = true;
 	Vector3 intersection = ZeroVector;
 	float minOverlap = std::numeric_limits<float>::infinity();

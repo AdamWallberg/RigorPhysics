@@ -15,13 +15,13 @@ ConvexHull::ConvexHull(const PointList& points, Vector3 position)
 
 void ConvexHull::normalizePosition()
 {
+	updateAABB();
 	Vector3 center = getCenterOfMass();
 	position = center;
 	for (auto& p : points)
 	{
 		p -= center;
 	}
-	updateAABB();
 }
 
 int orientation(Vector3 p, Vector3 q, Vector3 r)
@@ -84,8 +84,8 @@ void ConvexHull::sortByAngle(PointList& points, Vector3 center)
 void ConvexHull::updateAABB()
 {
 	float inf = std::numeric_limits<float>::infinity();
-	Vector3 min(-inf, -inf, -inf);
-	Vector3 max(inf, inf, inf);
+	Vector3 min(inf, inf, inf);
+	Vector3 max(-inf, -inf, -inf);
 	for (const Vector3& p : points)
 	{
 		if (p.x < min.x) min.x = p.x;
